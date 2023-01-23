@@ -6,7 +6,7 @@ django.setup()
 
 import random
 from faker import Faker
-from fake_email import Email
+
 
 
 from coursers.models import CourseReviews, Content, Courses, Instructor
@@ -16,18 +16,18 @@ from coursers.models import CourseReviews, Content, Courses, Instructor
 def seed_courses(n):
     images = ['1.png', '2.jpg', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.png']
     faker = Faker()
-    mail = Email()
-    language = ['Arabic', 'English', 'Germany']
+    
+    # language = ['Arabic', 'English', 'Germany']
 
     for _ in range(n):
         fName = faker.name()
-        rLang = random.randint(0,4)
+        rLang = 'Arabic' #language[random.randint(0,3)]
         fStudent =  random.randint(50,600000)
-        fRate = random.randint(0,6)
+        # fRate = random.randint(0,5)
         fRequer = faker.text(max_nb_chars=90)
         fSummry = faker.text(max_nb_chars=500)
-        fPrice = round(random.uniform(66.85, 700.85),2)
-        fImage = random.randint(0, 17)
+        fPrice = random.randint(200,5000)
+        fImage = images[random.randint(0, 15)]
         Rteacher = Instructor.objects.get(id=random.randint(0,49))
         Rcontent = Content.objects.get(id=random.randint(0, 101))
 
@@ -38,7 +38,7 @@ def seed_courses(n):
             studients=fStudent,
             requerment= fRequer,
             price=fPrice,
-            rate = fRate,
+            # rate = fRate,
             teacher= Rteacher ,
             created_at= timezone.now()
             
@@ -50,13 +50,12 @@ def seed_courses(n):
 
 def seed_instructors(n):
     faker = Faker()
-    mail = Email()
 
     for _ in range(n):
         fName = faker.name()
-        fEmail = mail.Mail()
+        fEmail = f"{random.randint(81, 300)}@gmail.com"
         fStudent =  random.randint(50,600000)
-        fRate = random.randint(0,6)
+        fRate = random.randint(0,5)
         fSummry = faker.text(max_nb_chars=500)
 
         Instructor.objects.create(
@@ -105,9 +104,9 @@ def seed_content(n):
 
 
     for _ in range(n):
-        fVideos = videos[random.randint(0,10)]
-        fTests = tests[random.randint(0,10)]
-        fFiles = files[random.randint(0,10)]
+        fVideos = videos[random.randint(0,9)]
+        fTests = tests[random.randint(0,9)]
+        fFiles = files[random.randint(0,9)]
         
         Content.objects.create(
             videos= fVideos,
@@ -117,8 +116,7 @@ def seed_content(n):
         )
     print(f"Successfully seeded {n} content")
 
-
-seed_courses(100)
-seed_instructors(50)
-seed_content(100)
-seed_reviews(6000)
+# seed_content(100)
+seed_instructors(500)
+# seed_courses(5)
+# seed_reviews(6000)

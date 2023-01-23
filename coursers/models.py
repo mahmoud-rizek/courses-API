@@ -14,7 +14,7 @@ class Courses(models.Model):
     requerment = models.TextField(_("Requerment"), max_length=1000)
     price = models.IntegerField(_("price"))
     studients = models.IntegerField(_("Studient's count"))
-    content = models.OneToOneField("Content", verbose_name=_("Content"), on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return self.name
@@ -45,4 +45,7 @@ class Content(models.Model):
     videos = models.URLField(_("Lessons"), max_length=200)
     files = models.FileField(_("Files"), upload_to="course_files", max_length=100)
     test = models.URLField(_("Test"), max_length=200)
-
+    course = models.OneToOneField(Courses, verbose_name=_("Course"), related_name="coursContent", on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return str(self.course)
