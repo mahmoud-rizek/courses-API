@@ -42,9 +42,9 @@ class CourseReviews(models.Model):
 
 
 class Content(models.Model):
-    videos = models.URLField(_("Lessons"), max_length=200)
-    files = models.FileField(_("Files"), upload_to="course_files", max_length=100)
-    test = models.URLField(_("Test"), max_length=200)
+    videos = models.CharField(_("Video"), max_length=50)  
+    files = models.CharField(_("File"), max_length=50)  
+    test = models.CharField(_("Test"), max_length=50)  
     course = models.OneToOneField(Courses, verbose_name=_("Course"), related_name="coursContent", on_delete=models.CASCADE)
     
     def __str__(self):

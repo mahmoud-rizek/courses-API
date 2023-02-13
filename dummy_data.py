@@ -22,14 +22,14 @@ def seed_courses(n):
     for _ in range(n):
         fName = faker.name()
         rLang = 'Arabic' #language[random.randint(0,3)]
-        fStudent =  random.randint(50,600000)
+        fStudent =  random.randint(500,600000)
         # fRate = random.randint(0,5)
         fRequer = faker.text(max_nb_chars=90)
         fSummry = faker.text(max_nb_chars=500)
         fPrice = random.randint(200,5000)
         fImage = images[random.randint(0, 15)]
-        Rteacher = Instructor.objects.get(id=random.randint(0,49))
-        Rcontent = Content.objects.get(id=random.randint(0, 101))
+        Rteacher = Instructor.objects.get(id=random.randint(20,50))
+       
 
         Courses.objects.create(
             name = fName,
@@ -48,12 +48,29 @@ def seed_courses(n):
     print(f"Successfully seeded {n} courses")
 
 
+def seed_content(n):
+    faker = Faker()
+    for _ in range(n):
+        fVideos = f"{faker}.mp4"
+        fTests = f"{fVideos}_test"
+        fFiles = f"{fVideos}.pdf"
+        fCourse =  Courses.objects.get(id=random.randint(50, 4000))
+        
+        Content.objects.create(
+            videos= fVideos,
+            test= fTests,
+            files= fFiles,
+            course= fCourse
+            
+        )
+    print(f"Successfully seeded {n} content")
+
 def seed_instructors(n):
     faker = Faker()
 
     for _ in range(n):
         fName = faker.name()
-        fEmail = f"{random.randint(81, 300)}@gmail.com"
+        fEmail = f"{fName}@gmail.com"
         fStudent =  random.randint(50,600000)
         fRate = random.randint(0,5)
         fSummry = faker.text(max_nb_chars=500)
@@ -74,13 +91,15 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 def seed_reviews(n):
+    faker = Faker()
+    user = User.objects.get(username="win10")
     for _ in range(n):
         fRate = random.randint(0,6)
-        fSummry = faker.text(max_nb_chars=50)
-        Rcourse = Courses.objects.get(id=random.randint(0,101))
+        fSummry = faker.text(max_nb_chars=70)
+        Rcourse = Courses.objects.get(id=random.randint(2,5150))
 
         CourseReviews.objects.create(
-            user= User(),
+            user= user,
             created_at= timezone.now(),
             rate = fRate,
             review = fSummry,
@@ -89,34 +108,7 @@ def seed_reviews(n):
     print(f"Successfully seeded {n} reviews")
 
 
-def seed_content(n):
-    videos = ['lesson_1.mp4', 'lesson_2.mp4', 'lesson_3.mp4', 'lesson_4.mp4', 'lesson_5.mp4', 'lesson_6.mp4', 'lesson_7.mp4', 'lesson_8.mp4', 'lesson1.mp_9','lesson_10.mp4']
-
-    tests = ['https://www.youtube.com/watch?v=ExCP4S-DHkQ&list=PLjM43R2pHZ8XfvO1D6o8DSToE3vOm3N2Z',
-    'https://www.youtube.com/watch?v=bJlxZaCq9e4&list=PLjM43R2pHZ8XfvO1D6o8DSToE3vOm3N2Z&index=2',
-    'https://www.youtube.com/watch?v=EukekRxwWns&list=PLjM43R2pHZ8XfvO1D6o8DSToE3vOm3N2Z&index=3',
-    'https://www.youtube.com/watch?v=EukekRxwWns&list=PLjM43R2pHZ8XfvO1D6o8DSToE3vOm3N2Z&index=4',
-    'https://www.youtube.com/watch?v=EukekRxwWns&list=PLjM43R2pHZ8XfvO1D6o8DSToE3vOm3N2Z&index=5',
-    'https://www.youtube.com/watch?v=EukekRxwWns&list=PLjM43R2pHZ8XfvO1D6o8DSToE3vOm3N2Z&index=6','https://www.youtube.com/watch?v=EukekRxwWns&list=PLjM43R2pHZ8XfvO1D6o8DSToE3vOm3N2Z&index=7',
-    'https://www.youtube.com/watch?v=EukekRxwWns&list=PLjM43R2pHZ8XfvO1D6o8DSToE3vOm3N2Z&index=8', 'https://www.youtube.com/watch?v=EukekRxwWns&list=PLjM43R2pHZ8XfvO1D6o8DSToE3vOm3N2Z&index=9', 'https://www.youtube.com/watch?v=EukekRxwWns&list=PLjM43R2pHZ8XfvO1D6o8DSToE3vOm3N2Z&index=10']
-
-    files = ['file_1.pdf','file_2.pdf','file_3.pdf','file_4.pdf','file_5.pdf','file_6.pdf','file_7.pdf','file_8.pdf','file_9.pdf','file_10.pdf']
-
-
-    for _ in range(n):
-        fVideos = videos[random.randint(0,9)]
-        fTests = tests[random.randint(0,9)]
-        fFiles = files[random.randint(0,9)]
-        
-        Content.objects.create(
-            videos= fVideos,
-            test= fTests,
-            files= fFiles,
-            
-        )
-    print(f"Successfully seeded {n} content")
-
-# seed_content(100)
-seed_instructors(500)
-# seed_courses(5)
-# seed_reviews(6000)
+seed_content(5000)
+# seed_instructors(500)
+# seed_courses(5000)
+# seed_reviews(60000)
