@@ -13,7 +13,7 @@ class ContentSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    # content = ContentSerializer()
+    content = ContentSerializer()
     teacher = InstractorSerializer()
     class Meta:
         model = Courses

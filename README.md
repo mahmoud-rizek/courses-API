@@ -1,2 +1,2 @@
-# courses-API
+# Courses-API
 generate courses api 
