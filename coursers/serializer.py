@@ -6,14 +6,14 @@ class InstractorSerializer(serializers.ModelSerializer):
         model = Instructor
         fields = '__all__'
 
-class ContentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Content
-        fields = '__all__'
+# class ContentSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Content
+#         fields = '__all__'
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    content = ContentSerializer()
+    # content = ContentSerializer()
     teacher = InstractorSerializer()
     class Meta:
         model = Courses

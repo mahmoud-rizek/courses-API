@@ -2,9 +2,10 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view 
 from rest_framework import generics
+from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Content, CourseReviews, Courses, Instructor, CourseReviews
-from .serializer import CourseSerializer, InstractorSerializer, ContentSerializer
+from .models import Courses
+from .serializer import CourseSerializer
 from .paginations import CoursePaginations
 from .fillters import CoursesFillter
 
@@ -25,7 +26,7 @@ class CoursesApiDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CoursesApi(generics.ListCreateAPIView):
-    queryset = Courses
+    queryset = Courses.objects.all()
     serializer_class = CourseSerializer
     pagination_class = CoursePaginations
     filter_backends = [DjangoFilterBackend]
